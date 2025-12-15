@@ -1,5 +1,5 @@
 import { Pokemons } from "@/types/pokemons";
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { usePokemons } from "./use-pokemons";
 
 interface UseListProps {
@@ -13,9 +13,21 @@ interface UseListProps {
 }
 
 export function useList(): UseListProps {
-	const [offset, setOffset] = useState(0);
+	const searchParams = useSearchParams();
+	const router = useRouter();
 	const limit = 24;
+	const offset = parseInt(searchParams.get("offset") || "0", 10);
 	const { data: pokemonData, isLoading, error } = usePokemons({ limit, offset });
+
+	const updateOffset = (newOffset: number) => {
+		const params = new URLSearchParams(searchParams.toString());
+		if (newOffset === 0) {
+			params.delete("offset");
+		} else {
+			params.set("offset", newOffset.toString());
+		}
+		router.push(`/pokemon?${params.toString()}`);
+	};
 
 	const handleNext = () => {
 		if (pokemonData?.next) {
@@ -23,12 +35,12 @@ export function useList(): UseListProps {
 				const url = new URL(pokemonData.next);
 				const nextOffset = url.searchParams.get("offset");
 				if (nextOffset) {
-					setOffset(parseInt(nextOffset, 10));
+					updateOffset(parseInt(nextOffset, 10));
 				}
 			} catch {
 				const match = pokemonData.next.match(/offset=(\d+)/);
 				if (match) {
-					setOffset(parseInt(match[1], 10));
+					updateOffset(parseInt(match[1], 10));
 				}
 			}
 		}
@@ -40,15 +52,15 @@ export function useList(): UseListProps {
 				const url = new URL(pokemonData.previous);
 				const prevOffset = url.searchParams.get("offset");
 				if (prevOffset) {
-					setOffset(parseInt(prevOffset, 10));
+					updateOffset(parseInt(prevOffset, 10));
 				} else {
-					setOffset(0);
+					updateOffset(0);
 				}
 			} catch {
-				setOffset(Math.max(0, offset - limit));
+				updateOffset(Math.max(0, offset - limit));
 			}
 		} else {
-			setOffset(0);
+			updateOffset(0);
 		}
 	};
 

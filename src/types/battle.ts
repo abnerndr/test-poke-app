@@ -4,10 +4,20 @@ export interface Battle {
 	secondPokemonId: number;
 	winnerId: number | null;
 	occurredAt: Date;
-	metadata: Record<string, unknown> | null;
+	metadata: BattleMetadata;
 }
 
 export interface CreateBattle {
 	firstPokemonId: number;
 	secondPokemonId: number;
 }
+
+type BattleMetadata =
+	| {
+			winnerId?: number;
+			reason?: string;
+			percentage?: number;
+			percentageLoser?: number;
+	  }
+	| Record<string, unknown>
+	| null;
