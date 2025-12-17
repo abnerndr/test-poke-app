@@ -1,3 +1,4 @@
+import { httpAdapter } from "@/lib/axios/client";
 import { AxiosHttpAdapter } from "@/lib/axios/http.adapter";
 import { Battle, CreateBattle } from "@/types/battle";
 
@@ -19,3 +20,5 @@ export class BattleService {
 		return response.data;
 	}
 }
+
+export const battleService = new BattleService(httpAdapter);

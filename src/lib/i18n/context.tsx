@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
+import { AnyType } from "@/types/types";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { Language, getTranslation } from "./index";
 
@@ -19,7 +20,6 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
 	const [language, setLanguageState] = useState<Language>("pt-BR");
 
 	useEffect(() => {
-		// Tenta recuperar o idioma do localStorage
 		const savedLang = localStorage.getItem("pokemon-app-language") as Language;
 		if (savedLang && (savedLang === "pt-BR" || savedLang === "en")) {
 			setLanguageState(savedLang);
@@ -35,9 +35,9 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
 		const translation = getTranslation(language);
 		const keys = key.split(".");
 
-		let value: any = translation;
+		let value: AnyType<(typeof translation)[keyof typeof translation]> = translation;
 		for (const k of keys) {
-			value = value?.[k];
+			value = value?.[k as keyof typeof value];
 			if (value === undefined) {
 				return key;
 			}

@@ -23,6 +23,15 @@ export const en = {
 		baseExp: "Base Exp.",
 		statsDescription:
 			"The ranges shown on the right are for a level 100 Pokémon. Maximum values are based on a beneficial nature, 252 EVs, 31 IVs; minimum values are based on a hindering nature, 0 EVs, 0 IVs.",
+		createBattle: "Create Battle",
+		selectFirstPokemon: "Select First Pokémon",
+		selectSecondPokemon: "Select Second Pokémon",
+		firstPokemon: "First Pokémon",
+		secondPokemon: "Second Pokémon",
+		startBattle: "Start Battle!",
+		newBattle: "New Battle",
+		winner: "Winner",
+		searchPokemon: "Search Pokémon...",
 	},
 
 	// Stat names
@@ -78,4 +87,3 @@ export const en = {
 		noPokemonsFound: "No pokemons found",
 	},
 };
-

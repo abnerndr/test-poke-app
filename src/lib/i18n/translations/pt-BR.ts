@@ -23,6 +23,15 @@ export const ptBR = {
 		baseExp: "Experiência Base",
 		statsDescription:
 			"Os intervalos mostrados à direita são para um Pokémon nível 100. Valores máximos são baseados em natureza benéfica, 252 EVs, 31 IVs; valores mínimos são baseados em natureza prejudicial, 0 EVs, 0 IVs.",
+		createBattle: "Criar Batalha",
+		selectFirstPokemon: "Selecione o Primeiro Pokémon",
+		selectSecondPokemon: "Selecione o Segundo Pokémon",
+		firstPokemon: "Primeiro Pokémon",
+		secondPokemon: "Segundo Pokémon",
+		startBattle: "Iniciar Batalha!",
+		newBattle: "Nova Batalha",
+		winner: "Vencedor",
+		searchPokemon: "Buscar Pokémon...",
 	},
 
 	// Stat names

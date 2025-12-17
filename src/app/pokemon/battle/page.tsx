@@ -1,3 +1,5 @@
+import CreateBattle from "@/components/app/battle/create";
+
 export default function BattlePage() {
-	return <div>BattlePage</div>;
+	return <CreateBattle />;
 }
