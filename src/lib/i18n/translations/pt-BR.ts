@@ -35,6 +35,11 @@ export const ptBR = {
 		battleHistory: "Histórico de Batalhas",
 		battleDate: "Data da Batalha",
 		noBattles: "Nenhuma batalha encontrada",
+		viewBattleHistory: "Ver Histórico",
+		backToBattle: "Voltar para Batalha",
+		pokemonList: "Lista de Pokémons",
+		appName: "Poke Battle",
+		victoryReason: "Motivo da Vitória",
 	},
 
 	// Stat names

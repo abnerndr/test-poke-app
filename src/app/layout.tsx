@@ -1,3 +1,5 @@
+import { MainNav } from "@/components/common/navigation/main-nav";
+import { cn } from "@/lib/utils";
 import Provider from "@/providers";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
@@ -14,7 +16,6 @@ export const metadata: Metadata = {
 	title: "Poke Battle",
 	description: "Poke Battle",
 };
-
 export default function RootLayout({
 	children,
 }: Readonly<{
@@ -22,8 +23,11 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en" suppressHydrationWarning>
-			<body className={`${poppins.className}  antialiased`}>
-				<Provider>{children}</Provider>
+			<body className={cn("antialiased ", poppins.className)}>
+				<Provider>
+					<MainNav />
+					{children}
+				</Provider>
 				<Toaster
 					position="top-right"
 					richColors

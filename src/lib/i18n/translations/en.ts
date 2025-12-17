@@ -35,6 +35,11 @@ export const en = {
 		battleHistory: "Battle History",
 		battleDate: "Battle Date",
 		noBattles: "No battles found",
+		viewBattleHistory: "View History",
+		backToBattle: "Back to Battle",
+		pokemonList: "Pokémon List",
+		appName: "Poke Battle",
+		victoryReason: "Victory Reason",
 	},
 
 	// Stat names

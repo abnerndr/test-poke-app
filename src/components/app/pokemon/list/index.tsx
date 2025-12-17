@@ -30,7 +30,7 @@ export default function PokemonList() {
 	}
 
 	return (
-		<div className="p-4 max-w-6xl mx-auto">
+		<div className="p-4 max-w-7xl mx-auto">
 			{/* Header */}
 			<PokemonListHeader data={pokemonData} />
 			{/* Cards */}

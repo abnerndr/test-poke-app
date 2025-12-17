@@ -68,6 +68,19 @@ export function BattleHistoryItem({
 		}).format(d);
 	};
 
+	// Extrair o reason do metadata
+	const getReason = (): string | null => {
+		if (!battle.metadata || typeof battle.metadata !== "object" || Array.isArray(battle.metadata)) {
+			return null;
+		}
+		if ("reason" in battle.metadata && typeof battle.metadata.reason === "string") {
+			return battle.metadata.reason;
+		}
+		return null;
+	};
+
+	const reason = getReason();
+
 	return (
 		<div className="border rounded-lg p-6 bg-white shadow-md hover:shadow-lg transition-shadow">
 			{/* Data da batalha */}
@@ -160,6 +173,18 @@ export function BattleHistoryItem({
 					</div>
 				)}
 			</div>
+
+			{/* Motivo da Vitória */}
+			{reason && (
+				<div className="mt-4 pt-4 border-t border-gray-200">
+					<div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg">
+						<p className="text-sm font-semibold text-yellow-800 mb-1">
+							{t("ui.victoryReason") || "Motivo da Vitória"}:
+						</p>
+						<p className="text-sm text-gray-700">{reason}</p>
+					</div>
+				</div>
+			)}
 		</div>
 	);
 }

@@ -1,6 +1,5 @@
 "use client";
 
-import { useI18n } from "@/lib/i18n/context";
 import { pokemonService } from "@/services/pokemon";
 import { Pokemon } from "@/types/pokemon";
 import { useState } from "react";
@@ -25,7 +24,6 @@ export function useBattle({
 	onBattleResultChange,
 	onFormReset,
 }: UseBattleProps) {
-	const { t } = useI18n();
 	const [isBattling, setIsBattling] = useState(false);
 	const [battleResult, setBattleResult] = useState<{ winner: Pokemon | null } | null>(null);
 
@@ -128,7 +126,6 @@ export function useBattle({
 	};
 
 	return {
-		t,
 		handleCreateBattle,
 		canStartBattle,
 		handleNewBattle,
