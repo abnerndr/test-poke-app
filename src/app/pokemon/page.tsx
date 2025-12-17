@@ -1,10 +1,10 @@
 import PokemonList from "@/components/app/pokemon/list";
+import LoadingFallback from "@/components/common/fallback/loading-fallback";
 import { Suspense } from "react";
-import LoadingScreen from "@/components/common/loading-screen";
 
 export default function PokemonPage() {
 	return (
-		<Suspense fallback={<LoadingScreen />}>
+		<Suspense fallback={<LoadingFallback />}>
 			<PokemonList />
 		</Suspense>
 	);
