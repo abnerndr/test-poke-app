@@ -2,12 +2,14 @@ import { getIdByPathname } from "@/lib/helpers/get-id-by-pathname";
 import { Pokemon } from "@/types/pokemon";
 import { usePathname, useSearchParams } from "next/navigation";
 import { usePokemon } from "./use-pokemon";
+import { useTranslatedPokemon } from "@/lib/i18n/pokemon-translations";
 
 interface UseDetailsProps {
 	pokemon?: Pokemon;
 	isLoading: boolean;
 	error: Error | null;
 	getBackUrl: () => string;
+	isTranslating: boolean;
 }
 
 export function useDetails(): UseDetailsProps {
@@ -15,6 +17,7 @@ export function useDetails(): UseDetailsProps {
 	const searchParams = useSearchParams();
 	const id = getIdByPathname(pathname);
 	const { data: pokemon, isLoading, error } = usePokemon(id);
+	const { translatedPokemon, isTranslating } = useTranslatedPokemon(pokemon);
 
 	const getBackUrl = () => {
 		const params = new URLSearchParams(searchParams.toString());
@@ -22,9 +25,10 @@ export function useDetails(): UseDetailsProps {
 	};
 
 	return {
-		pokemon,
+		pokemon: translatedPokemon,
 		isLoading,
 		error,
 		getBackUrl,
+		isTranslating,
 	};
 }

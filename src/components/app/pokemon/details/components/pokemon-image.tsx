@@ -14,12 +14,9 @@ export function PokemonImage({ pokemon }: PokemonImageProps) {
 
 	return (
 		<div className="flex flex-col items-center">
-			<div className="relative w-64 h-64 mb-4">
+			<div className="relative w-64 h-64">
 				<Image src={mainImage.url} alt={pokemon.name} className="object-contain" width={256} height={256} priority />
 			</div>
-			{pokemon.pictures && pokemon.pictures.length > 1 && (
-				<button className="text-sm text-blue-600 hover:underline">Additional artwork</button>
-			)}
 		</div>
 	);
 }

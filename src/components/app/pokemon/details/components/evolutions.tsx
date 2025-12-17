@@ -1,4 +1,5 @@
 import { pressStart2P } from "@/lib/fonts/press-start";
+import { useI18n } from "@/lib/i18n/context";
 import { cn } from "@/lib/utils";
 import { Pokemon } from "@/types/pokemon";
 import Image from "next/image";
@@ -9,6 +10,7 @@ interface EvolutionsProps {
 }
 
 export function Evolutions({ pokemon }: EvolutionsProps) {
+	const { t } = useI18n();
 	const evolutions = pokemon.evolutions;
 	if (!evolutions || (!evolutions.first && !evolutions.second && !evolutions.third)) {
 		return null;
@@ -16,8 +18,8 @@ export function Evolutions({ pokemon }: EvolutionsProps) {
 	const evolutionChain = [evolutions.first, evolutions.second, evolutions.third].filter(Boolean);
 
 	return (
-		<div className="space-y-4">
-			<h2 className={cn("text-xl font-bold mb-4", pressStart2P.className)}>Evolution Chain</h2>
+		<div className={cn("space-y-4", pressStart2P.className)}>
+			<h2 className={cn("text-xl font-bold mb-4", pressStart2P.className)}>{t("ui.evolutionChain")}</h2>
 			<div className="flex items-center gap-4 flex-wrap">
 				{evolutionChain.map((evolution, index) => {
 					if (!evolution) return null;
@@ -43,7 +45,7 @@ export function Evolutions({ pokemon }: EvolutionsProps) {
 								<span className={cn("text-sm font-semibold capitalize", isCurrent && "text-blue-600")}>
 									{evolution.name}
 								</span>
-								<span className="text-xs text-gray-500">#{evolution.id}</span>
+								<span className="text-[10px] text-gray-500">#{evolution.id}</span>
 							</Link>
 						</div>
 					);
