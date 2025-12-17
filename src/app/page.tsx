@@ -1,5 +1,5 @@
-import PokemonList from "@/components/app/pokemon/list";
+import CreateBattle from "@/components/app/battle/create";
 
-export default function PokemonPage() {
-	return <PokemonList />;
+export default function BattlePage() {
+	return <CreateBattle />;
 }
