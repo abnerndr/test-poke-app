@@ -139,22 +139,22 @@ export default function CreateBattle() {
 
 			{/* Preview dos pokemons selecionados */}
 			{!battleResult &&
-				!isBattling &&
-				((firstPokemonId && firstPokemonId > 0) || (secondPokemonId && secondPokemonId > 0)) && (
-					<div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
-						<PokemonPreview
-							pokemon={isLoadingDetails ? null : firstPokemon || null}
-							title={t("ui.firstPokemon") || "Primeiro Pokémon"}
-						/>
-						<PokemonPreview
-							pokemon={isLoadingDetails ? null : secondPokemon || null}
-							title={t("ui.secondPokemon") || "Segundo Pokémon"}
-						/>
-					</div>
-				)}
+			!isBattling &&
+			((firstPokemonId && firstPokemonId > 0) || (secondPokemonId && secondPokemonId > 0)) ? (
+				<div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
+					<PokemonPreview
+						pokemon={isLoadingDetails ? null : firstPokemon || null}
+						title={t("ui.firstPokemon") || "Primeiro Pokémon"}
+					/>
+					<PokemonPreview
+						pokemon={isLoadingDetails ? null : secondPokemon || null}
+						title={t("ui.secondPokemon") || "Segundo Pokémon"}
+					/>
+				</div>
+			) : null}
 
 			{/* Botão de iniciar batalha */}
-			{canStartBattle && (
+			{canStartBattle ? (
 				<div className="mt-8 text-center">
 					<button
 						onClick={handleSubmit(handleCreateBattle)}
@@ -167,7 +167,7 @@ export default function CreateBattle() {
 						{t("ui.startBattle") || "Iniciar Batalha!"}
 					</button>
 				</div>
-			)}
+			) : null}
 		</div>
 	);
 }
