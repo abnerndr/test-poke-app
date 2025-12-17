@@ -1,5 +1,6 @@
 # Nixpacks configuration for Dokploy
 # Install yarn directly via npm to avoid corepack signature issues
+# Optimized for minimal disk space usage
 
 [phases.setup]
 nixPkgs = ["nodejs_20"]
@@ -7,15 +8,24 @@ nixPkgs = ["nodejs_20"]
 [phases.install]
 # Disable corepack and install yarn directly
 # Use npx to run yarn which always works
+# Clean npm cache before and after to save space
+# Use --network-timeout to prevent hanging on slow connections
 cmds = [
   "corepack disable || true",
+  "npm cache clean --force || true",
   "npm install -g yarn",
   "npx -y yarn --version",
-  "npx -y yarn install --frozen-lockfile"
+  "npx -y yarn install --network-timeout 100000",
+  "npm cache clean --force || true",
+  "rm -rf /tmp/* /var/tmp/* || true"
 ]
 
 [phases.build]
-cmds = ["npx -y yarn build"]
+cmds = [
+  "npx -y yarn build",
+  "npm cache clean --force || true",
+  "rm -rf node_modules/.cache .next/cache || true"
+]
 
 [start]
 cmd = "npx -y yarn start"
