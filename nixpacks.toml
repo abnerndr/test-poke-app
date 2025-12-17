@@ -1,42 +1,21 @@
 # Nixpacks configuration for Dokploy
-# Install yarn directly via npm to avoid corepack signature issues
-# Optimized for minimal disk space usage
+# Install pnpm directly via npm to avoid corepack signature issues
 
 [phases.setup]
 nixPkgs = ["nodejs_20"]
 
 [phases.install]
-# Disable corepack and install yarn directly
-# Use npx to run yarn which always works
-# Clean npm cache before and after to save space
-# Use --network-timeout to prevent hanging on slow connections
-# Set npm_config to limit optional platform binaries
-# Use TMPDIR to control where temporary files are stored
-env = { 
-  npm_config_target_platform = "linux", 
-  npm_config_target_arch = "x64", 
-  npm_config_cache = "/tmp/.npm",
-  TMPDIR = "/tmp",
-  YARN_CACHE_FOLDER = "/tmp/.yarn-cache"
-}
+# Disable corepack and install pnpm directly
+# Use npx to run pnpm which always works
 cmds = [
   "corepack disable || true",
-  "npm cache clean --force || true",
-  "rm -rf /tmp/* /var/tmp/* ~/.npm ~/.yarn/cache /tmp/.npm /tmp/.yarn-cache || true",
-  "npm install -g yarn",
-  "npx -y yarn --version",
-  "npx -y yarn install --network-timeout 100000 --cache-folder /tmp/.yarn-cache",
-  "npm cache clean --force || true",
-  "rm -rf /tmp/.npm /tmp/.yarn-cache ~/.npm ~/.yarn/cache || true",
-  "find /tmp -type f -mtime +0 -delete || true"
+  "npm install -g pnpm@10",
+  "npx -y pnpm@10 --version",
+  "npx -y pnpm@10 install --frozen-lockfile"
 ]
 
 [phases.build]
-cmds = [
-  "npx -y yarn build",
-  "npm cache clean --force || true",
-  "rm -rf node_modules/.cache .next/cache ~/.npm ~/.yarn/cache || true"
-]
+cmds = ["npx -y pnpm@10 build"]
 
 [start]
-cmd = "npx -y yarn start"
+cmd = "npx -y pnpm@10 start"
