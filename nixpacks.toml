@@ -1,0 +1,21 @@
+# Nixpacks configuration for Dokploy
+# Install yarn directly via npm to avoid corepack signature issues
+
+[phases.setup]
+nixPkgs = ["nodejs_20"]
+
+[phases.install]
+# Disable corepack and install yarn directly
+# Use npx to run yarn which always works
+cmds = [
+  "corepack disable || true",
+  "npm install -g yarn",
+  "npx -y yarn --version",
+  "npx -y yarn install --frozen-lockfile"
+]
+
+[phases.build]
+cmds = ["npx -y yarn build"]
+
+[start]
+cmd = "npx -y yarn start"
