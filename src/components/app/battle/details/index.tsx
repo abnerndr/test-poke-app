@@ -1,32 +1,21 @@
 "use client";
 
+import { useI18n } from "@/lib/i18n/context";
 import { Pokemon } from "@/types/pokemon";
 import { useBattleDetails } from "./hooks/use-battle-details";
-import { useI18n } from "@/lib/i18n/context";
 
 interface BattleDetailsProps {
 	firstPokemon?: Pokemon;
 	secondPokemon?: Pokemon;
 }
 
-/**
- * Componente de detalhes da batalha
- * Traduz automaticamente os dados dos Pokémon usando o hook useBattleDetails
- * 
- * Exemplo de uso:
- * ```tsx
- * const firstPokemon = { id: 25, name: "pikachu", ... };
- * const secondPokemon = { id: 1, name: "bulbasaur", ... };
- * 
- * <BattleDetails firstPokemon={firstPokemon} secondPokemon={secondPokemon} />
- * ```
- */
 export default function BattleDetails({ firstPokemon, secondPokemon }: BattleDetailsProps) {
 	const { t } = useI18n();
-	const { firstPokemon: firstPokemonData, secondPokemon: secondPokemonData, isTranslating } = useBattleDetails(
-		firstPokemon,
-		secondPokemon
-	);
+	const {
+		firstPokemon: firstPokemonData,
+		secondPokemon: secondPokemonData,
+		isTranslating,
+	} = useBattleDetails(firstPokemon, secondPokemon);
 
 	if (!firstPokemonData || !secondPokemonData) {
 		return (
@@ -40,13 +29,9 @@ export default function BattleDetails({ firstPokemon, secondPokemon }: BattleDet
 		<div className="p-4">
 			<div className="max-w-6xl mx-auto">
 				<h1 className="text-2xl font-bold mb-6">Battle Details</h1>
-				
+
 				{/* Indicadores de tradução */}
-				{isTranslating && (
-					<div className="mb-4 text-sm text-gray-500">
-						{t("ui.loading")}...
-					</div>
-				)}
+				{isTranslating && <div className="mb-4 text-sm text-gray-500">{t("ui.loading")}...</div>}
 
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 					{/* Primeiro Pokémon */}
@@ -65,9 +50,7 @@ export default function BattleDetails({ firstPokemon, secondPokemon }: BattleDet
 										<li key={index} className="capitalize">
 											{ability.name}
 											{ability.short_effect && (
-												<span className="text-sm text-gray-600 ml-2">
-													- {ability.short_effect}
-												</span>
+												<span className="text-sm text-gray-600 ml-2">- {ability.short_effect}</span>
 											)}
 										</li>
 									))}
@@ -91,9 +74,7 @@ export default function BattleDetails({ firstPokemon, secondPokemon }: BattleDet
 										<li key={index} className="capitalize">
 											{ability.name}
 											{ability.short_effect && (
-												<span className="text-sm text-gray-600 ml-2">
-													- {ability.short_effect}
-												</span>
+												<span className="text-sm text-gray-600 ml-2">- {ability.short_effect}</span>
 											)}
 										</li>
 									))}
@@ -106,4 +87,3 @@ export default function BattleDetails({ firstPokemon, secondPokemon }: BattleDet
 		</div>
 	);
 }
-

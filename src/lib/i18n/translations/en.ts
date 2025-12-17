@@ -32,6 +32,9 @@ export const en = {
 		newBattle: "New Battle",
 		winner: "Winner",
 		searchPokemon: "Search Pokémon...",
+		battleHistory: "Battle History",
+		battleDate: "Battle Date",
+		noBattles: "No battles found",
 	},
 
 	// Stat names
@@ -85,5 +88,6 @@ export const en = {
 		loadPokemons: "Error loading pokemons. Please try again.",
 		pokemonNotFound: "Pokemon not found",
 		noPokemonsFound: "No pokemons found",
+		loadBattles: "Error loading battles. Please try again.",
 	},
 };

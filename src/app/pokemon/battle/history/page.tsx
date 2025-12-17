@@ -1,3 +1,5 @@
+import BattleHistory from "@/components/app/battle/history";
+
 export default function BattleHistoryPage() {
-	return <div>BattleHistoryPage</div>;
+	return <BattleHistory />;
 }

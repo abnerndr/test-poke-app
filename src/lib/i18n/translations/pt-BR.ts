@@ -32,6 +32,9 @@ export const ptBR = {
 		newBattle: "Nova Batalha",
 		winner: "Vencedor",
 		searchPokemon: "Buscar Pokémon...",
+		battleHistory: "Histórico de Batalhas",
+		battleDate: "Data da Batalha",
+		noBattles: "Nenhuma batalha encontrada",
 	},
 
 	// Stat names
@@ -85,5 +88,6 @@ export const ptBR = {
 		loadPokemons: "Erro ao carregar pokemons. Tente novamente.",
 		pokemonNotFound: "Pokemon não encontrado",
 		noPokemonsFound: "Nenhum pokemon encontrado",
+		loadBattles: "Erro ao carregar batalhas. Tente novamente.",
 	},
 };
