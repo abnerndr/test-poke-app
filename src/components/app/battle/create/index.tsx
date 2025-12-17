@@ -14,8 +14,26 @@ import { useBattleForm } from "./hooks/use-battle-form";
 export default function CreateBattle() {
 	const [battleResult, setBattleResult] = useState<{ winner: Pokemon | null } | null>(null);
 
-	const { handleSubmit, isLoadingDetails, firstPokemonId, secondPokemonId, firstPokemon, secondPokemon, reset } =
-		useBattleForm();
+	const {
+		handleSubmit,
+		isLoadingDetails,
+		firstPokemonId,
+		secondPokemonId,
+		firstPokemon,
+		secondPokemon,
+		reset,
+		errors,
+		setValue,
+		firstSearchTerm,
+		secondSearchTerm,
+		pokemonsInfinityData,
+		isLoadingPokemonsInfinity,
+		hasNextPage,
+		isFetchingNextPage,
+		fetchNextPage,
+		handleSelectFirst,
+		handleSelectSecond,
+	} = useBattleForm();
 
 	const { handleCreateBattle, canStartBattle, handleNewBattle, isBattling } = useBattle({
 		firstPokemonId: firstPokemonId || 0,
@@ -39,7 +57,23 @@ export default function CreateBattle() {
 				isBattling={isBattling}
 			/>
 			{/* Seleção de pokemons */}
-			<CreateBattleSelection battleResult={battleResult} isBattling={isBattling} />
+			<CreateBattleSelection
+				battleResult={battleResult}
+				isBattling={isBattling}
+				errors={errors}
+				setValue={setValue}
+				firstSearchTerm={firstSearchTerm}
+				secondSearchTerm={secondSearchTerm}
+				pokemonsInfinityData={pokemonsInfinityData}
+				isLoadingPokemonsInfinity={isLoadingPokemonsInfinity}
+				hasNextPage={hasNextPage}
+				isFetchingNextPage={isFetchingNextPage}
+				fetchNextPage={fetchNextPage}
+				handleSelectFirst={handleSelectFirst}
+				handleSelectSecond={handleSelectSecond}
+				firstPokemonId={firstPokemonId}
+				secondPokemonId={secondPokemonId}
+			/>
 			{/* Preview dos pokemons selecionados */}
 			<CreateBattlePreview
 				battleResult={battleResult}

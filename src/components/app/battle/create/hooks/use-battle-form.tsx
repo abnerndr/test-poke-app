@@ -48,14 +48,22 @@ export function useBattleForm() {
 	);
 
 	const handleSelectFirst = (pokemon: PokemonItem) => {
-		setValue("firstPokemonId", pokemon.id, { shouldValidate: true });
+		setValue("firstPokemonId", pokemon.id, {
+			shouldValidate: false,
+			shouldDirty: true,
+			shouldTouch: true,
+		});
 		toast.info(`${pokemon.name} selecionado como primeiro Pokémon!`, {
 			description: "Agora selecione o segundo Pokémon",
 		});
 	};
 
 	const handleSelectSecond = (pokemon: PokemonItem) => {
-		setValue("secondPokemonId", pokemon.id, { shouldValidate: true });
+		setValue("secondPokemonId", pokemon.id, {
+			shouldValidate: false,
+			shouldDirty: true,
+			shouldTouch: true,
+		});
 		toast.info(`${pokemon.name} selecionado como segundo Pokémon!`, {
 			description: "Pronto para iniciar a batalha",
 		});

@@ -1,5 +1,8 @@
 import { Pokemon } from "@/types/pokemon";
-import { useBattleForm } from "../../../hooks/use-battle-form";
+import { PokemonItem, Pokemons } from "@/types/pokemons";
+import { InfiniteData } from "@tanstack/react-query";
+import { FieldErrors, UseFormSetValue } from "react-hook-form";
+import { BattleFormData } from "../../../schemas/battle-form.schema";
 import CreateBattleSelectionFirst from "./first";
 import CreateBattleSelectionSecondary from "./secondary";
 
@@ -8,23 +11,37 @@ interface CreateBattleSelectionProps {
 		winner: Pokemon | null;
 	} | null;
 	isBattling: boolean;
+	errors: FieldErrors<BattleFormData>;
+	setValue: UseFormSetValue<BattleFormData>;
+	firstSearchTerm: string | undefined;
+	secondSearchTerm: string | undefined;
+	pokemonsInfinityData: InfiniteData<Pokemons, unknown> | undefined;
+	isLoadingPokemonsInfinity: boolean;
+	hasNextPage: boolean;
+	isFetchingNextPage: boolean;
+	fetchNextPage: () => void;
+	handleSelectFirst: (pokemon: PokemonItem) => void;
+	handleSelectSecond: (pokemon: PokemonItem) => void;
+	firstPokemonId: number;
+	secondPokemonId: number;
 }
-export function CreateBattleSelection({ battleResult, isBattling }: CreateBattleSelectionProps) {
-	const {
-		errors,
-		setValue,
-		firstSearchTerm,
-		secondSearchTerm,
-		pokemonsInfinityData,
-		isLoadingPokemonsInfinity,
-		hasNextPage,
-		isFetchingNextPage,
-		fetchNextPage,
-		handleSelectFirst,
-		handleSelectSecond,
-		firstPokemonId,
-		secondPokemonId,
-	} = useBattleForm();
+export function CreateBattleSelection({
+	battleResult,
+	isBattling,
+	errors,
+	setValue,
+	firstSearchTerm,
+	secondSearchTerm,
+	pokemonsInfinityData,
+	isLoadingPokemonsInfinity,
+	hasNextPage,
+	isFetchingNextPage,
+	fetchNextPage,
+	handleSelectFirst,
+	handleSelectSecond,
+	firstPokemonId,
+	secondPokemonId,
+}: CreateBattleSelectionProps) {
 	return (
 		<div>
 			{!battleResult && !isBattling && (

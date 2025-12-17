@@ -15,11 +15,18 @@ export function PokemonSelector({ pokemon, isSelected, onSelect }: PokemonSelect
 	const bgColorClass = getPokemonColorClass(pokemon?.color?.name);
 	const borderColorClass = getPokemonBorderColorClass(pokemon?.color?.name);
 
+	const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+		e.preventDefault();
+		e.stopPropagation();
+		onSelect(pokemon);
+	};
+
 	return (
 		<button
-			onClick={() => onSelect(pokemon)}
+			type="button"
+			onClick={handleClick}
 			className={cn(
-				"rounded-lg p-2 sm:p-3 transition-all text-left w-full min-w-0 box-border",
+				"rounded-lg p-2 sm:p-3 transition-all text-left w-full min-w-0 box-border cursor-pointer",
 				bgColorClass,
 				isSelected
 					? "border-2 border-blue-500 shadow-lg shadow-blue-500/50"
