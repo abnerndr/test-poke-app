@@ -12,7 +12,7 @@ import { useBattle } from "./hooks/use-battle";
 import { useBattleForm } from "./hooks/use-battle-form";
 
 export default function CreateBattle() {
-	const [battleResult, setBattleResult] = useState<{ winner: Pokemon | null } | null>(null);
+	const [battleResult, setBattleResult] = useState<{ winner: Pokemon | null; reason?: string | null } | null>(null);
 
 	const {
 		handleSubmit,

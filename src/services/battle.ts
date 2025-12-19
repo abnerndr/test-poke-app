@@ -1,6 +1,6 @@
 import { httpAdapter } from "@/lib/axios/client";
 import { AxiosHttpAdapter } from "@/lib/axios/http.adapter";
-import { Battle, CreateBattle } from "@/types/battle";
+import { Battle, BattleQueryParams, CreateBattle } from "@/types/battle";
 
 export class BattleService {
 	constructor(private readonly httpAdapter: AxiosHttpAdapter) {}
@@ -10,8 +10,8 @@ export class BattleService {
 		return response.data;
 	}
 
-	async getBattles(): Promise<Battle[]> {
-		const response = await this.httpAdapter.getInstance().get<Battle[]>(`/battle/list`);
+	async getBattles(params: BattleQueryParams): Promise<Battle[]> {
+		const response = await this.httpAdapter.getInstance().get<Battle[]>(`/battle/list`, { params });
 		return response.data;
 	}
 

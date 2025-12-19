@@ -16,6 +16,7 @@ interface CreateBattleSelectionSecondaryProps {
 	hasNextPage: boolean;
 	isFetchingNextPage: boolean;
 	fetchNextPage: () => void;
+	firstPokemonId: number;
 	secondPokemonId: number;
 	handleSelectSecond: (pokemon: PokemonItem) => void;
 }
@@ -29,6 +30,7 @@ export default function CreateBattleSelectionSecondary({
 	hasNextPage,
 	isFetchingNextPage,
 	fetchNextPage,
+	firstPokemonId,
 	secondPokemonId,
 	handleSelectSecond,
 }: CreateBattleSelectionSecondaryProps) {
@@ -46,7 +48,6 @@ export default function CreateBattleSelectionSecondary({
 					onChange={(e) => setValue("secondSearchTerm", e.target.value)}
 					className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
 				/>
-				{errors.secondPokemonId && <p className="mt-1 text-sm text-red-500">{errors.secondPokemonId.message}</p>}
 			</div>
 			<div className="overflow-hidden">
 				<PokemonList
@@ -56,6 +57,7 @@ export default function CreateBattleSelectionSecondary({
 					isFetchingNextPage={isFetchingNextPage}
 					fetchNextPage={fetchNextPage}
 					selectedPokemonId={secondPokemonId && secondPokemonId > 0 ? secondPokemonId : null}
+					blockedPokemonId={firstPokemonId && firstPokemonId > 0 ? firstPokemonId : null}
 					onSelect={handleSelectSecond}
 					searchTerm={secondSearchTerm}
 				/>

@@ -17,6 +17,7 @@ interface CreateBattleSelectionFirstProps {
 	isFetchingNextPage: boolean;
 	fetchNextPage: () => void;
 	firstPokemonId: number;
+	secondPokemonId: number;
 	handleSelectFirst: (pokemon: PokemonItem) => void;
 }
 
@@ -30,6 +31,7 @@ export default function CreateBattleSelectionFirst({
 	isFetchingNextPage,
 	fetchNextPage,
 	firstPokemonId,
+	secondPokemonId,
 	handleSelectFirst,
 }: CreateBattleSelectionFirstProps) {
 	const { t } = useI18n();
@@ -46,7 +48,6 @@ export default function CreateBattleSelectionFirst({
 					onChange={(e) => setValue("firstSearchTerm", e.target.value)}
 					className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
 				/>
-				{errors.firstPokemonId && <p className="mt-1 text-sm text-red-500">{errors.firstPokemonId.message}</p>}
 			</div>
 			<div className="overflow-hidden">
 				<PokemonList
@@ -56,6 +57,7 @@ export default function CreateBattleSelectionFirst({
 					isFetchingNextPage={isFetchingNextPage}
 					fetchNextPage={fetchNextPage}
 					selectedPokemonId={firstPokemonId && firstPokemonId > 0 ? firstPokemonId : null}
+					blockedPokemonId={secondPokemonId && secondPokemonId > 0 ? secondPokemonId : null}
 					onSelect={handleSelectFirst}
 					searchTerm={firstSearchTerm}
 				/>

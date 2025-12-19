@@ -57,6 +57,7 @@ export function CreateBattleSelection({
 						isFetchingNextPage={isFetchingNextPage}
 						fetchNextPage={fetchNextPage}
 						firstPokemonId={firstPokemonId}
+						secondPokemonId={secondPokemonId}
 						handleSelectFirst={handleSelectFirst}
 					/>
 
@@ -70,6 +71,7 @@ export function CreateBattleSelection({
 						hasNextPage={hasNextPage}
 						isFetchingNextPage={isFetchingNextPage}
 						fetchNextPage={fetchNextPage}
+						firstPokemonId={firstPokemonId}
 						secondPokemonId={secondPokemonId}
 						handleSelectSecond={handleSelectSecond}
 					/>

@@ -9,9 +9,10 @@ import { getPokemonBorderColorClass, getPokemonColorClass } from "../../../pokem
 
 interface WinnerCardProps {
 	pokemon: Pokemon;
+	reason?: string | null;
 }
 
-export function WinnerCard({ pokemon }: WinnerCardProps) {
+export function WinnerCard({ pokemon, reason }: WinnerCardProps) {
 	const { t } = useI18n();
 	const { translatedPokemon } = useTranslatedPokemon(pokemon);
 	const displayPokemon = translatedPokemon || pokemon;
@@ -51,6 +52,18 @@ export function WinnerCard({ pokemon }: WinnerCardProps) {
 				<h2 className="text-3xl font-bold capitalize mb-2">{displayPokemon.name}</h2>
 				<p className="text-gray-600">#{String(displayPokemon.id).padStart(4, "0")}</p>
 			</div>
+
+			{/* Motivo da Vitória */}
+			{reason && (
+				<div className="mt-6 pt-4 border-t border-yellow-300/60">
+					<div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg">
+						<p className="text-sm font-semibold text-yellow-800 mb-1">
+							{t("ui.victoryReason") || "Motivo da Vitória"}:
+						</p>
+						<p className="text-sm text-gray-700">{reason}</p>
+					</div>
+				</div>
+			)}
 		</div>
 	);
 }

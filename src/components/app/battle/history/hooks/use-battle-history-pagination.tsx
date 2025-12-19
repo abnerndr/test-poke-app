@@ -31,7 +31,7 @@ export function useBattleHistoryPagination({
 		} else {
 			params.set("page", page.toString());
 		}
-		router.push(`/pokemon/battle/history?${params.toString()}`);
+		router.push(`/battle/history?${params.toString()}`);
 	};
 
 	const handleNext = () => {

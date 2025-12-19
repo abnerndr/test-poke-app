@@ -7,6 +7,7 @@ interface CreateBattleResultProps {
 	handleNewBattle: () => void;
 	battleResult: {
 		winner: Pokemon | null;
+		reason?: string | null;
 	} | null;
 }
 
@@ -16,7 +17,7 @@ export function CreateBattleResult({ handleNewBattle, battleResult }: CreateBatt
 		<div>
 			{battleResult && battleResult.winner && (
 				<div className="mb-6">
-					<WinnerCard pokemon={battleResult.winner} />
+					<WinnerCard pokemon={battleResult.winner} reason={battleResult.reason} />
 					<div className="text-center mt-4">
 						<button
 							onClick={handleNewBattle}

@@ -8,14 +8,20 @@ import { getPokemonBorderColorClass, getPokemonColorClass } from "../../../../po
 interface PokemonSelectorProps {
 	pokemon: PokemonItem;
 	isSelected: boolean;
+	isDisabled?: boolean;
 	onSelect: (pokemon: PokemonItem) => void;
 }
 
-export function PokemonSelector({ pokemon, isSelected, onSelect }: PokemonSelectorProps) {
+export function PokemonSelector({ pokemon, isSelected, isDisabled = false, onSelect }: PokemonSelectorProps) {
 	const bgColorClass = getPokemonColorClass(pokemon?.color?.name);
 	const borderColorClass = getPokemonBorderColorClass(pokemon?.color?.name);
 
 	const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+		if (isDisabled) {
+			e.preventDefault();
+			e.stopPropagation();
+			return;
+		}
 		e.preventDefault();
 		e.stopPropagation();
 		onSelect(pokemon);
@@ -25,12 +31,16 @@ export function PokemonSelector({ pokemon, isSelected, onSelect }: PokemonSelect
 		<button
 			type="button"
 			onClick={handleClick}
+			disabled={isDisabled}
 			className={cn(
-				"rounded-lg p-2 sm:p-3 transition-all text-left w-full min-w-0 box-border cursor-pointer",
+				"rounded-lg p-2 sm:p-3 transition-all text-left w-full min-w-0 box-border",
 				bgColorClass,
+				isDisabled
+					? "opacity-50 cursor-not-allowed grayscale"
+					: "cursor-pointer",
 				isSelected
 					? "border-2 border-blue-500 shadow-lg shadow-blue-500/50"
-					: cn("border", borderColorClass, "hover:shadow-md")
+					: cn("border", borderColorClass, !isDisabled && "hover:shadow-md")
 			)}
 		>
 			<div className="flex flex-col items-center text-center min-w-0">

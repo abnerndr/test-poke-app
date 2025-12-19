@@ -12,7 +12,7 @@ interface UseBattleProps {
 	secondPokemonId: number;
 	firstPokemon: Pokemon | undefined;
 	secondPokemon: Pokemon | undefined;
-	onBattleResultChange: (result: { winner: Pokemon | null } | null) => void;
+	onBattleResultChange: (result: { winner: Pokemon | null; reason?: string | null } | null) => void;
 	onFormReset: () => void;
 }
 
@@ -25,7 +25,7 @@ export function useBattle({
 	onFormReset,
 }: UseBattleProps) {
 	const [isBattling, setIsBattling] = useState(false);
-	const [battleResult, setBattleResult] = useState<{ winner: Pokemon | null } | null>(null);
+	const [battleResult, setBattleResult] = useState<{ winner: Pokemon | null; reason?: string | null } | null>(null);
 
 	const createBattleMutation = useCreateBattle();
 
@@ -51,6 +51,15 @@ export function useBattle({
 				firstPokemonId: data.firstPokemonId,
 				secondPokemonId: data.secondPokemonId,
 			});
+
+			const getReasonFromMetadata = (): string | null => {
+				const metadata = result?.metadata;
+				if (!metadata || typeof metadata !== "object" || Array.isArray(metadata)) return null;
+				if ("reason" in metadata && typeof metadata.reason === "string") return metadata.reason;
+				return null;
+			};
+
+			const reason = getReasonFromMetadata();
 
 			toast.dismiss("battle-start");
 			toast.success("Batalha iniciada!", {
@@ -88,11 +97,11 @@ export function useBattle({
 					});
 				}
 
-				const battleResult = { winner };
+				const battleResult = { winner, reason };
 				setBattleResult(battleResult);
 				onBattleResultChange(battleResult);
 			} else {
-				const battleResult = { winner: null };
+				const battleResult = { winner: null, reason };
 				setBattleResult(battleResult);
 				onBattleResultChange(battleResult);
 				toast.dismiss("battle-fighting");

@@ -15,6 +15,7 @@ interface PokemonListProps {
 	selectedPokemonId: number | null;
 	onSelect: (pokemon: PokemonItem) => void;
 	searchTerm?: string;
+	blockedPokemonId?: number | null;
 }
 
 export function PokemonList({
@@ -26,6 +27,7 @@ export function PokemonList({
 	selectedPokemonId,
 	onSelect,
 	searchTerm = "",
+	blockedPokemonId = null,
 }: PokemonListProps) {
 	const scrollContainerRef = useRef<HTMLDivElement>(null);
 
@@ -68,6 +70,7 @@ export function PokemonList({
 								key={pokemon.id}
 								pokemon={pokemon}
 								isSelected={selectedPokemonId === pokemon.id}
+								isDisabled={blockedPokemonId !== null && blockedPokemonId === pokemon.id}
 								onSelect={onSelect}
 							/>
 						))}

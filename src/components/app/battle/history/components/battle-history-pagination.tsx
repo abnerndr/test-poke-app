@@ -2,12 +2,12 @@
 
 import { EightBitButton } from "@/components/common/button/eight-bit-button";
 import { pressStart2P } from "@/lib/fonts/press-start";
-import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 
 interface BattleHistoryPaginationProps {
 	currentPage: number;
-	totalPages: number;
+	totalPages?: number;
 	handlePrev: () => void;
 	handleNext: () => void;
 	hasPrev: boolean;
@@ -32,9 +32,13 @@ export function BattleHistoryPagination({
 				</div>
 			</EightBitButton>
 			<span className={cn("text-zinc-600", pressStart2P.className)}>
-				Página{" "}
-				<span className={cn(currentPage === 1 ? "text-zinc-400" : "text-zinc-800")}>{currentPage}</span> de{" "}
-				<span className={cn(currentPage === totalPages ? "text-zinc-400" : "text-zinc-800")}>{totalPages}</span>
+				Página <span className={cn(currentPage === 1 ? "text-zinc-400" : "text-zinc-800")}>{currentPage}</span>
+				{typeof totalPages === "number" && (
+					<>
+						{" "}
+						de <span className={cn(currentPage === totalPages ? "text-zinc-400" : "text-zinc-800")}>{totalPages}</span>
+					</>
+				)}
 			</span>
 			<EightBitButton color="green" onClick={handleNext} disabled={!hasNext || isLoading}>
 				<div className="flex items-center gap-2">
@@ -44,4 +48,3 @@ export function BattleHistoryPagination({
 		</div>
 	);
 }
-

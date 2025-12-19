@@ -12,6 +12,12 @@ export interface CreateBattle {
 	secondPokemonId: number;
 }
 
+export interface BattleQueryParams {
+	order?: "desc" | "asc" | undefined;
+	limit?: number | undefined;
+	offset?: number | undefined;
+}
+
 type BattleMetadata =
 	| {
 			winnerId?: number;
