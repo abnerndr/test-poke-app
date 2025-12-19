@@ -1,17 +1,13 @@
 "use client";
 
-import { EightBitButton } from "@/components/common/button/eight-bit-button";
-import { pressStart2P } from "@/lib/fonts/press-start";
 import { useI18n } from "@/lib/i18n/context";
-import { cn } from "@/lib/utils";
-import { ArrowLeftIcon, ArrowUpDownIcon } from "lucide-react";
-import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useMemo } from "react";
 import { BattleHistoryItem } from "./components/battle-history-item";
 import { BattleHistoryPagination } from "./components/battle-history-pagination";
 import { BattleHistoryError } from "./components/content/error";
 import { BattleHistoryLoading } from "./components/content/loading";
+import { BattleHistoryNavigation } from "./components/content/navigation";
 import { BattleHistoryNotFound } from "./components/content/not-found";
 import { useBattleHistory } from "./hooks/use-battle-history";
 import { useBattles } from "./hooks/use-battles";
@@ -82,26 +78,9 @@ export default function BattleHistory() {
 
 	return (
 		<div className="p-4 max-w-6xl mx-auto">
-			<div className="flex items-center justify-between mb-6 w-full">
-				<h1 className={cn("text-2xl font-bold", pressStart2P.className)}>
-					{t("ui.battleHistory") || "Histórico de Batalhas"}
-				</h1>
-				<div className="flex items-center gap-3 w-full justify-end">
-					<EightBitButton color="yellow" onClick={handleToggleOrder}>
-						<div className="flex items-center gap-2">
-							<ArrowUpDownIcon className="w-4 h-4" />
-							{order === "desc" ? "Mais recentes" : "Mais antigos"}
-						</div>
-					</EightBitButton>
-					<Link href="/battle">
-						<EightBitButton color="blue">
-							<div className="flex items-center gap-2">
-								<ArrowLeftIcon className="w-4 h-4" /> {t("ui.backToBattle") || "Voltar para Batalha"}
-							</div>
-						</EightBitButton>
-					</Link>
-				</div>
-			</div>
+			{/*  Navigation */}
+			<BattleHistoryNavigation handleToggleOrder={handleToggleOrder} order={order} />
+			{/*  Battle History */}
 			<div className="space-y-4">
 				{allBattleHistory.map((battleData) => (
 					<BattleHistoryItem
@@ -114,6 +93,7 @@ export default function BattleHistory() {
 					/>
 				))}
 			</div>
+			{/*  Pagination */}
 			<BattleHistoryPagination
 				currentPage={currentPage}
 				handlePrev={handlePrev}

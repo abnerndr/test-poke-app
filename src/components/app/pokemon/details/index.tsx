@@ -47,7 +47,6 @@ export default function PokemonDetails() {
 			<div className="max-w-6xl mx-auto">
 				{/* Header */}
 				<PokemonDetailsHeader pokemon={pokemon} isTranslating={isTranslating} getBackUrl={getBackUrl} />
-
 				{/* Main Content */}
 				<PokemonDetailsMainContent pokemon={pokemon} borderColorClass={borderColorClass} />
 			</div>

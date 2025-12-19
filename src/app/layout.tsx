@@ -1,16 +1,10 @@
 import { MainNav } from "@/components/common/navigation/main-nav";
+import { poppins } from "@/lib/fonts/poppins";
 import { cn } from "@/lib/utils";
 import Provider from "@/providers";
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
 import { Toaster } from "sonner";
 import "./globals.css";
-
-const poppins = Poppins({
-	variable: "--font-poppins",
-	subsets: ["latin"],
-	weight: ["400", "500", "600", "700"],
-});
 
 export const metadata: Metadata = {
 	title: "Poke Battle",
