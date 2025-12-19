@@ -9,20 +9,33 @@ import { getPokemonBorderColorClass, getPokemonColorClass } from "../utils/get-p
 
 interface PokemonCardsData {
 	data: Pokemons;
+	searchTerm?: string;
 }
 
-export function PokemonCards({ data }: PokemonCardsData) {
+export function PokemonCards({ data, searchTerm = "" }: PokemonCardsData) {
 	const searchParams = useSearchParams();
 	const items = data.items || data.results || [];
+
+	const filteredItems = searchTerm
+		? items.filter((pokemon) => pokemon.name.toLowerCase().includes(searchTerm.toLowerCase()))
+		: items;
 
 	const getDetailUrl = (id: number) => {
 		const params = new URLSearchParams(searchParams.toString());
 		return `/pokemon/${id}${params.toString() ? `?${params.toString()}` : ""}`;
 	};
 
+	if (searchTerm && filteredItems.length === 0) {
+		return (
+			<div className="text-center py-8 mb-6">
+				<p className="text-gray-500">Nenhum pokemon encontrado com o nome &quot;{searchTerm}&quot;</p>
+			</div>
+		);
+	}
+
 	return (
 		<div className="grid grid-cols-3 gap-4 mb-6">
-			{items.map((pokemon: PokemonItem) => {
+			{filteredItems.map((pokemon: PokemonItem) => {
 				const bgColorClass = getPokemonColorClass(pokemon?.color?.name);
 				const borderColorClass = getPokemonBorderColorClass(pokemon?.color?.name);
 				return (

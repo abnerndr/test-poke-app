@@ -38,6 +38,24 @@ export function PokemonList({
 		: allPokemons;
 
 	useEffect(() => {
+		if (!searchTerm || !hasNextPage || isFetchingNextPage) return;
+
+		const allLoadedPokemons = data?.pages ? data.pages.flatMap((page) => page.items || page.results || []) : [];
+		const filtered = allLoadedPokemons.filter((pokemon) =>
+			pokemon.name.toLowerCase().includes(searchTerm.toLowerCase())
+		);
+		const hasResults = filtered.length > 0;
+
+		const loadedPages = data?.pages.length || 0;
+		if (!hasResults && loadedPages < 5) {
+			const timer = setTimeout(() => {
+				fetchNextPage();
+			}, 300);
+			return () => clearTimeout(timer);
+		}
+	}, [searchTerm, hasNextPage, isFetchingNextPage, fetchNextPage, data]);
+
+	useEffect(() => {
 		const container = scrollContainerRef.current;
 		if (!container || !hasNextPage || isFetchingNextPage) return;
 
@@ -75,8 +93,8 @@ export function PokemonList({
 							/>
 						))}
 					</div>
-					{/* Indicador de carregamento - só mostra se não estiver filtrando */}
-					{!searchTerm && isFetchingNextPage && (
+					{/* Indicador de carregamento */}
+					{isFetchingNextPage && (
 						<div className="text-center py-4">
 							<p className="text-gray-500 text-sm">Carregando mais pokemons...</p>
 						</div>
